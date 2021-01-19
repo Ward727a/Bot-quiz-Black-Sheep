@@ -1,8 +1,5 @@
 {
-"Quiz":[{"title":"Test 3","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537754698973204","roleID":"798537754030899220","roleIDEnd":"798537753356533800","uuid":"8857a782-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537755545698344","leaderBoardMessage":"798537756691005511","leaderBoard":[]},
-{"title":"Test 3.2","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537756711321620","roleID":"798537755553562664","roleIDEnd":"798537754714832946","uuid":"8857a453-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537757713629194","leaderBoardMessage":"798537758749884467","leaderBoard":[]},
-{"title":"Test 3.3","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537758494294017","roleID":"798537757282664458","roleIDEnd":"798537756430565397","uuid":"8857a132-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537759681282088","leaderBoardMessage":"798537760151437323","leaderBoard":[]},
-{"title":"Test 3.4","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537761496891422","roleID":"798537759119376414","roleIDEnd":"798537758275534888","uuid":"8857adfb-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537762554118184","leaderBoardMessage":"798537763347365888","leaderBoard":[]}
-
+"Quiz":[
+  {"title":"Test 3","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537754698973204","roleID":"798537754030899220","roleIDEnd":"798537753356533800","uuid":"8857a782-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537755545698344","leaderBoardMessage":"798537756691005511","leaderBoard":[]}    
 ]
 }
