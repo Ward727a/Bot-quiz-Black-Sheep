@@ -1,3 +1,4 @@
+const {getLang} = require("../../../Function/other/lang/getLangString");
 const {setChannelQuiz} = require("../../../Function/Quiz/setChannelQuiz");
 const {Quizz} = require("../../../class/Quizz");
 const {ChannelQuiz} = require("../../../class/channelQuiz");
@@ -169,6 +170,9 @@ function qSetup(message, channel, fs, client, args){
 
         }
     }
+
+    let lang = getLang('qsetup');
+    channel.send(lang['setupStringSuccess'])
 }
 
 exports.qSetup = qSetup;

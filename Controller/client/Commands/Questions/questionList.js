@@ -1,3 +1,4 @@
+const {getLang} = require("../../../Function/other/lang/getLangString");
 const {getQuiz} = require("../../../Function/Quiz/getQuiz");
 const {hasRole} = require("../../../Function/Player/hasRole");
 
@@ -20,7 +21,8 @@ function questionList(message, args, fs, channel){
     }
 
 
-    let msg = "Voici une liste des questions pour le quiz \`"+quiz.title+"\` :\n";
+    let lang = getLang('questionlist');
+    let msg = lang['titleString'].replace('%quizTitle%', quiz.title);
     channel.send(msg);
     try {
 

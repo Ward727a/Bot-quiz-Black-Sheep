@@ -1,3 +1,4 @@
+const {getLang} = require("../../../Function/other/lang/getLangString");
 const {hasRole} = require("../../../Function/Player/hasRole");
 
 function qList(channel, fs, message){
@@ -6,8 +7,11 @@ function qList(channel, fs, message){
     let title = "";
     let uuid = "";
     let allQuiz = "";
+
+    let lang = getLang('qlist');
+
     if(!hasRole(message, "canCreateQuiz")) return;
-    msg = "Voici une liste des quiz :\n";
+    msg = lang['titleString'];
     try {
 
         allQuiz = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));

@@ -3,8 +3,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 const config = require('./model/config.json');
-
-
+const {initLang} = require("./Controller/Function/other/lang/initLang");
 const client = new Discord.Client();
 
 const { v4: uuidv4 } = require('uuid');
@@ -19,6 +18,7 @@ const {questionList} = require("./Controller/client/Commands/Questions/questionL
 const {qList} = require("./Controller/client/Commands/Quiz/qList");
 const {qHelp} = require("./Controller/client/Commands/Admin/qhelp");
 const {qRemove} = require("./Controller/client/Commands/Quiz/qRemove");
+const {newHint} = require('./Controller/client/Commands/Hint/newHint');
 
 const {hasRole} = require("./Controller/Function/Player/hasRole");
 const {getPlayerInfo} = require('./Controller/Function/Player/getPlayerInfo');
@@ -28,6 +28,8 @@ const {isQuestionChannel} = require('./Controller/Function/Question/isQuestionCh
 const {nextQuestion} = require('./Controller/Function/Question/nextQuestion');
 const {registerQuestion} = require('./Controller/Function/Question/registerQuestion');
 
+const {getLang} = require('./Controller/Function/other/lang/getLangString');
+
 const {registerQuiz} = require('./Controller/Function/Quiz/registerQuiz');
 
 const {logInfo} = require("./Controller/Function/LOG/logInfo");
@@ -35,11 +37,24 @@ const {logError} = require("./Controller/Function/LOG/logError");
 
 const {Quizz} = require('./Controller/class/Quizz.js');
 const {C_question} = require('./Controller/class/c_question');
+const {classHint} = require('./Controller/class/class_hint');
 
 const prefix = config.PREFIX;
+const comment = config.COMMENT;
 
 let newQuiz = [];
 let newQuestion = [];
+let newHintList = [];
+
+let lang = null;
+
+client.on("ready", function (){
+
+    initLang();
+
+    lang = getLang('main');
+
+});
 
 // CREATION QUIZ ET QUESTION
 client.on("message", function (message){
@@ -47,11 +62,11 @@ client.on("message", function (message){
     let item;
 
     if (message.author.bot) return;
-    if (message.content.charAt(0) === "!") return;
+    if (message.content.charAt(0) === prefix) return;
 
     if(isQuestionChannel(message.channel.id, false, false)){
 
-        if(message.content.charAt(0) === "%") return;
+        if(message.content.charAt(0) === comment) return;
 
         let questionStep = isQuestionChannel(message.channel.id, false, true)
         let quiz = isQuestionChannel(message.channel.id, true, false)
@@ -68,7 +83,7 @@ client.on("message", function (message){
         }
         if(question['response'] === undefined){
             let questionChannel = client.channels.cache.get(playerData.channelID)
-            questionChannel.send("Il semble que vous ayez déjà terminer le questionnaire.\nEn cas de soucis, contactez quelqu'un de l'équipe !")
+            questionChannel.send(lang['quizAlreadyFinished']);
         } else {
             if (message.content.toUpperCase() === question['response'].toUpperCase()) {
                 let questionChannel = client.channels.cache.get(playerData.channelID)
@@ -110,7 +125,7 @@ client.on("message", function (message){
                     item.title = message.content;
                     item.creatingStep += 1;
                     registerQuiz(item)
-                    message.reply("D'accord, le titre du questionnaire sera : " + item.title + "\nVous pouvez rajouter une question en faisant `!newquestion "+item.uuid+"` :").then();
+                    message.reply(lang['quizTitleSet'].replace('%titleQuiz%', item.title).replace('%uidQuiz%', item.uuid)).then();
                     break;
 
             }
@@ -121,17 +136,17 @@ client.on("message", function (message){
                     item.question = message.content;
                     item.creatingStep += 1;
 
-                    channel.send("D'accord, le titre sera : `" + item.question + "`.\nTapez la réponse à la question :");
+                    channel.send(lang['questionContentSet'].replace('%questionContent%', item.question));
                     break;
                 case 1:
                     item.response = message.content;
                     item.creatingStep += 1;
-                    channel.send("D'accord, la réponse sera : ||"+item.response +"||.\nTapez la fausse réponse à la question :");
+                    channel.send(lang['questionResponseSet'].replace('%questionResponse%', item.response));
                     break;
                 case 2:
                     item.falseResponse = message.content;
                     item.creatingStep += 1;
-                    channel.send("La fausse réponse sera : `"+item.falseResponse+"`.\n\nLa création de la question est terminer !");
+                    channel.send(lang['questionFalseSet'].replace('%questionFalse%', item.falseResponse));
                     registerQuestion(item);
                     break;
 
@@ -193,7 +208,7 @@ client.on("message", function(message) {
 
             newQuiz.push(quiz);
 
-            message.reply(`Création d\'un nouveau questionnaire !\n\nPremière étape, écrivez le titre du questionnaire : (sans "!" au début).\nTapez \`!qstop\` à n'importe quel moment pour arrêter la saisi et tout annuler.`).then(r => logInfo(r)).catch(err => (logError(err)));
+            message.reply(lang['quizBeginCreate']).then(r => logInfo(r)).catch(err => (logError(err)));
             break;
         case "qhelp":
             qHelp(message);
@@ -204,7 +219,7 @@ client.on("message", function(message) {
                     let removeindex = newQuiz.indexOf(items);
                     if(removeindex > -1){
                         newQuiz.splice(removeindex, 1);
-                        message.reply(`Vous pouvez regparlez normalement !`).then().catch(logError("la commande !qstop à provoqué une erreur, info :\ncontenu du message:\n"+message.content+"\nAuteur: "+message.author.username+"("+message.author.id+")"));
+                        message.reply(lang['quizQStop']).then().catch(logError("la commande !qstop à provoqué une erreur, info :\ncontenu du message:\n"+message.content+"\nAuteur: "+message.author.username+"("+message.author.id+")"));
                     }
                 }
             }
@@ -261,9 +276,21 @@ client.on("message", function(message) {
 
                     newQuestion.push(question);
 
-                    channel.send("Ajout d'une question au questionnaire `"+sQuiz.title+"`.\n\nEn premier tapez la question : ");
+                    channel.send(lang['newQuestionCommand'].replace('%quizTitle%', sQuiz.title));
                 } else {
-                    channel.send("Oops, le quiz avec le UUID `"+uid+"` n'éxiste pas.");
+                    channel.send(lang['newQuestionCommandError'].replace('%uid%', uid));
+                }
+            }
+            break;
+        case "newhint":
+
+            let tempHint = newHint();
+
+            if(tempHint === false) {
+                if (typeof tempHint === classHint) {
+                    newHintList.push(tempHint);
+                } else{
+                    logError('tempHint n\'est pas une variable de type "classHint".');
                 }
             }
             break;

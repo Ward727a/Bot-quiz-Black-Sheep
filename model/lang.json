@@ -1,0 +1,68 @@
+{
+
+  "allLangCat": ["newHint", "main", "qhelp"],
+
+  "main": {
+
+    "quizAlreadyFinished": "Il semble que vous ayez déjà terminer le questionnaire.\nEn cas de soucis, contactez quelqu'un de l'équipe !",
+
+    "quizBeginCreate": "Création d'un nouveau questionnaire !\n\nPremière étape, écrivez le titre du questionnaire : (sans \"!\" au début).\nTapez `!qstop` à n'importe quel moment pour arrêter la saisi et tout annuler.",
+    "quizQStop": "Vous pouvez reparlez normalement !",
+
+    "quizTitleSet": "D'accord, le titre du questionnaire sera : %titleQuiz%\nVous pouvez rajouter une question en faisant `!newquestion %uidQuiz%` :",
+
+    "questionContentSet": "D'accord, la question sera : `%questionContent%`.\nTapez la réponse à la question :",
+
+    "questionResponseSet": "D'accord, la réponse sera : ||%questionResponse%||.\nTapez la fausse réponse à la question :",
+
+    "questionFalseSet": "La fausse réponse sera : `%questionFalse%`.\n\nLa création de la question est terminer !",
+
+    "newQuestionCommand": "Ajout d'une question au questionnaire `%quizTitle%`.\n\nEn premier tapez la question : ",
+    "newQuestionCommandError": "Oops, le quiz avec le UUID `%uid%` n'éxiste pas."
+  },
+
+  "qhelp": {
+    "helpString": "Voici les commandes pour les quiz :\n\n            __Commandes basiques :__\n\n            - `!qjoin [UUID]` : Vous fait rejoindre le questionnaire.\n\n            - `!qleave [UUID]` : Vous fait quittez le questionnaire.\n\n            __Commandes nécessitant un grade :__\n\n            - `!qlist` : Liste tous les questionnaires avec leur UUID.\n\n            - `!newquestion [UUID]` : Ajoute une question à un questionnaire.\n\n            - `!questionlist [UUID du quiz] (afficher les réponses ? - true/false)` : Liste les questions d'un questionnaires avec leur UUID.\n\n            - `!qreset` : Rénitialise toutes les catégories de tous les questionnaires.\n\n            - `!qsetup (uuid)` : Créé les catégories nécessaires pour tous les questionnaires.\n\n            - `!newquiz` : Création d'un nouveau questionnaire.\n\n            - `!qremove [UUID]` : Supprime une questionnaire.\n\n            [] = Obligatoire | () = Facultatif"
+  },
+
+  "qreset": {
+    "resetString": "Reset terminer !"
+  },
+
+  "qsetup": {
+    "setupStringSuccess": "Setup de(s) questionnaire(s) terminer avec succès !"
+  },
+
+  "questionlist": {
+    "titleLine": "Voici une liste des questions pour le quiz `%quizTitle%` :\n"
+  },
+
+  "removequestion": {
+    "deleteString": "Question supprimée avec succès !"
+  },
+
+  "qjoin": {
+    "quizNotExist": "Le quiz n'existe pas !",
+    "alreadyJoinedQuiz": "Vous avez déjà rejoint le quiz %quizTitle% !"
+  },
+
+  "qleave": {
+    "notInQuiz": "Vous n'êtes pas dans le quiz %quizTitle% !"
+  },
+
+  "qlist": {
+    "titleString": "Voici la liste des questionnaires :\n"
+  },
+
+  "setup": {
+    "setupEnd": "Le bot a était mis en place avec succès !",
+    "alreadySetup": "Le serveur à déjà les roles nécessaire, veuillez vérifier."
+  },
+
+  "newHint": {
+
+    "errorArgsEmpty": "Les arguments pour la commande \"newhint\" sont vides."
+
+  }
+
+}

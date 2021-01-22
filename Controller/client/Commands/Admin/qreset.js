@@ -1,9 +1,13 @@
 const {getPlayerChannelByQuiz} = require("../../../Function/Player/getPlayerChannelByQuiz");
+const {getLang} = require("../../../Function/other/lang/getLangString");
+
 const fs = require('fs');
 
 function qReset(message, channel){
 
     let nameQuizToDel = [];
+
+    let lang = getLang('qreset');
 
     let dataJSON = fs.readFileSync('./model/quiz.json', 'utf-8')
     let allQuiz = JSON.parse(dataJSON);
@@ -65,7 +69,7 @@ function qReset(message, channel){
 
 
     }
-    channel.send("Reset terminer !")
+    channel.send(lang['resetString']);
 }
 
 exports.qReset = qReset;

@@ -1,3 +1,5 @@
+const {logError} = require("../../../Function/LOG/logError");
+const {getLang} = require("../../../Function/other/lang/getLangString");
 const {getRoleID} = require("../../../Function/Player/getRoleID");
 const {getQuestion} = require("../../../Function/Question/getQuestion");
 const {registerPlayerData} = require("../../../Function/Player/registerPlayerData");
@@ -12,18 +14,21 @@ function qJoin(args, message, channel, author, client){
     const everyone = message.guild.roles.everyone.id
     const canCreateQuiz = getRoleID('canCreateQuiz', message);
 
+    let lang = getLang('qjoin');
+    if(lang === false) return logError('Lang impossible à récupérer !');
+
     if(args !== "" || args !== undefined){
         let uid = args[0];
         let guild = message.guild
         let quiz = getQuiz(uid);
 
         if(quiz === null){
-            channel.send("Le quiz n'existe pas !");
+            channel.send(lang['quizNotExist']);
             return;
         }
 
         if(getPlayerInfo(author.id).indexOf(uid) !== -1){
-            channel.send("Vous avez déjà rejoint le quiz "+quiz.title+" !");
+            channel.send(lang['alreadyJoinedQuiz'].replace('%quizTitle%', quiz.title));
             return;
         }
 
