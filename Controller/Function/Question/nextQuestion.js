@@ -35,8 +35,8 @@ function nextQuestion(playerID, quizID, channel, message, client){
             const date = new Date(Date.now());
 
             u.step = u.step+1
-            u.dateEnd = date.getHours()+":"+date.getMinutes();
-            dateEnd =  date.getHours()+":"+date.getMinutes();
+            u.dateEnd = date.getDay()+":"+date.getMonth()+":"+date.getHours()+":"+date.getMinutes();
+            dateEnd =  date.getDay()+":"+date.getMonth()+":"+date.getHours()+":"+date.getMinutes();
             playerStep = u.step
 
         }
@@ -72,11 +72,20 @@ function nextQuestion(playerID, quizID, channel, message, client){
 
         if(endRole === undefined) return;
 
-        let startHour = parseInt(playerData.dateJoin.split(':')[0])*60;
-        let endHour = parseInt(dateEnd.split(':')[0])*60;
-        let startMinute = parseInt(playerData.dateJoin.split(':')[1])+startHour;
-        let endMinute = parseInt(dateEnd.split(':')[1])+endHour;
+        let playerTime = playerData.dateJoin.split(':');
+        let endPlayerTime = dateEnd.split(':');
 
+        let startMonth = parseInt(playerTime[1])*43800;
+        let endMonth = parseInt(endPlayerTime[1])*43800;
+        let startDay = parseInt(playerTime[0])*1440;
+        let endDay = parseInt(endPlayerTime[0])*1440;
+        let startHour = parseInt(playerTime[2])*60;
+        let endHour = parseInt(endPlayerTime[2])*60;
+        let startMinute = parseInt(playerTime[3])+startHour+startDay+startMonth;
+        let endMinute = parseInt(endPlayerTime[3])+endHour+endDay+endMonth;
+
+        let month = 0;
+        let day = 0;
         let hours = 0;
         let minutes;
 
@@ -87,6 +96,14 @@ function nextQuestion(playerID, quizID, channel, message, client){
         while(totalMinutes>=60){
             totalMinutes-=60
             hours+=1;
+            if(hours>=24){
+                hours = 0;
+                day+=1;
+                if(day/1440 >= 1){
+                    day = 1;
+                    month+=1;
+                }
+            }
         }
         minutes = totalMinutes;
         if(minutes < 0){
@@ -94,7 +111,7 @@ function nextQuestion(playerID, quizID, channel, message, client){
         }
 
 
-        channel.send('Bravo !\nVous avez terminé le questionnaire en '+hours+'h et '+minutes+' minutes !');
+        channel.send('Bravo !\nVous avez terminé le questionnaire en '+month+' mois, '+day+' jours '+hours+'h et '+minutes+' minutes !');
 
 
         message.member.roles.add(endRole).then(console.log)

@@ -1,5 +1,5 @@
 {
 "Quiz":[
-  {"title":"Test 3","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537754698973204","roleID":"798537754030899220","roleIDEnd":"798537753356533800","uuid":"8857a782-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537755545698344","leaderBoardMessage":"798537756691005511","leaderBoard":[]}    
+{"title":"Test 3","author":"263824739460448256","steps":3,"creatingStep":2,"channelID":"798537754698973204","roleID":"798537754030899220","roleIDEnd":"798537753356533800","uuid":"8857a782-66e7-4e93-9b37-6b488f02a9af","leaderBoardID":"798537755545698344","leaderBoardMessage":"798537756691005511","leaderBoard":[{"player":"263824739460448256","time":0},{"player":"263824739460448256","time":80},{"player":"263824739460448256","time":133}]}
 ]
 }

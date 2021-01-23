@@ -1,5 +1,5 @@
 
-class C_question{
+class Class_question{
     author = "";
     question = "";
     response = "";
@@ -9,4 +9,4 @@ class C_question{
     creatingStep = 0;
     id = 0;
 }
-exports.C_question = C_question;
+exports.classQuestion = Class_question;

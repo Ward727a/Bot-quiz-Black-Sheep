@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {getErrorLangCat} = require("./lang");
+const {var_getErrorLangCat} = require("../../../value/var_lang");
 
 function getLang(_cat){
 
@@ -7,7 +7,7 @@ function getLang(_cat){
     let lang = false;
     let cat;
 
-    let errorLangCat = getErrorLangCat();
+    let errorLangCat = var_getErrorLangCat();
 
     if(typeof _cat !== "string"){
 

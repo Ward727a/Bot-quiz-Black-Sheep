@@ -1,4 +1,4 @@
-class Quiz {
+class Class_quiz {
     title = "";
     author = "";
     steps = 0;
@@ -12,4 +12,4 @@ class Quiz {
     leaderBoard = [];
 }
 
-exports.Quizz = Quiz;
+exports.classQuiz = Class_quiz;

@@ -1,9 +1,8 @@
 {
 
   "hints":[
-
-
-
+    {}
+  ,
+    {"_uid":"fa6afcc9-ff7a-4eeb-a843-efba29eaabde","_author":"263824739460448256","_uidQuestion":"e3e718c5-21fc-4c68-a211-8e72996575c3","_content":"Test","_penality":25,"_penalityString":"%name%, j'ai des interférence, je te revoie .... %time% minutes.....","_id":0,"_creatingStep":3}
   ]
-
 }

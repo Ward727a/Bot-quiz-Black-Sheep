@@ -1,6 +1,6 @@
 const {getLang} = require("../../../Function/other/lang/getLangString");
 const {getQuiz} = require("../../../Function/Quiz/getQuiz");
-const {hasRole} = require("../../../Function/Player/hasRole");
+const {hasRole} = require("../../../Function/Player/Role/hasRole");
 
 function questionList(message, args, fs, channel){
 

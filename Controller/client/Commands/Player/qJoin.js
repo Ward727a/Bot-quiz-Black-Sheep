@@ -1,12 +1,12 @@
 const {logError} = require("../../../Function/LOG/logError");
 const {getLang} = require("../../../Function/other/lang/getLangString");
-const {getRoleID} = require("../../../Function/Player/getRoleID");
+const {getRoleID} = require("../../../Function/Player/Role/getRoleID");
 const {getQuestion} = require("../../../Function/Question/getQuestion");
-const {registerPlayerData} = require("../../../Function/Player/registerPlayerData");
+const {registerPlayerData} = require("../../../Function/Player/Data/registerPlayerData");
 const {getQuiz} = require("../../../Function/Quiz/getQuiz");
 const {getPlayerInfo} = require("../../../Function/Player/getPlayerInfo");
 
-const {PlayerChannel} = require("../../../class/playerChannel");
+const {classPlayer} = require("../../../class/class_player");
 
 
 function qJoin(args, message, channel, author, client){
@@ -32,7 +32,7 @@ function qJoin(args, message, channel, author, client){
             return;
         }
 
-        let joinData = new PlayerChannel();
+        let joinData = new classPlayer();
 
         console.log(canCreateQuiz);
 
@@ -66,7 +66,7 @@ function qJoin(args, message, channel, author, client){
             joinData.channelID = channel.id;
             joinData.memberID = author.id;
             joinData.quizID = uid;
-            joinData.dateJoin = date.getHours()+":"+date.getMinutes();
+            joinData.dateJoin = date.getUTCDay()+":"+date.getUTCMonth()+":"+date.getUTCHours()+":"+date.getUTCMinutes();
 
             let joinChannel = client.channels.cache.get(channel.id);
 

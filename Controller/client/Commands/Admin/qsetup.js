@@ -1,14 +1,14 @@
 const {getLang} = require("../../../Function/other/lang/getLangString");
 const {setChannelQuiz} = require("../../../Function/Quiz/setChannelQuiz");
-const {Quizz} = require("../../../class/Quizz");
-const {ChannelQuiz} = require("../../../class/channelQuiz");
+const {classQuiz} = require("../../../class/class_quiz");
+const {classChannel} = require("../../../class/class_channel");
 
 function qSetup(message, channel, fs, client, args){
 
     const everyone = message.guild.roles.everyone.id
 
     let quizPermSet = [];
-    let quizToCreate = [new ChannelQuiz()];
+    let quizToCreate = [new classChannel()];
     let dataJSON = fs.readFileSync('./model/quiz.json', 'utf-8');
     let allQuiz = JSON.parse(dataJSON);
 
@@ -19,8 +19,8 @@ function qSetup(message, channel, fs, client, args){
         for(const i of Quiz){
 
             if(i.uuid === args[0]) {
-                let u = new ChannelQuiz();
-                let o = new Quizz();
+                let u = new classChannel();
+                let o = new classQuiz();
 
                 u.name = i.title;
                 u.uid = i.uuid;
@@ -39,8 +39,8 @@ function qSetup(message, channel, fs, client, args){
         }
     } else {
         for (const i of Quiz) {
-            let u = new ChannelQuiz();
-            let o = new Quizz();
+            let u = new classChannel();
+            let o = new classQuiz();
 
             u.name = i.title;
             u.uid = i.uuid;

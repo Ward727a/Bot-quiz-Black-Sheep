@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {getPlayerInfo} = require('./getPlayerInfo.js');
+const {getPlayerInfo} = require('../getPlayerInfo.js');
 
 function removePlayerData(message, dataToRemove){
     if(getPlayerInfo(dataToRemove.memberID, false).indexOf(dataToRemove.quizID) !== -1){

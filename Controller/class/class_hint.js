@@ -3,10 +3,12 @@ class class_hint{
 
     _uid="";
     _author="";
-    _uidQuestion="";
+    _uidQuestion= String();
     _content="";
     _penality="";
     _penalityString="";
+    _id = "";
+    _creatingStep = null;
 
 
     get uid() {
@@ -55,6 +57,22 @@ class class_hint{
 
     set penalityString(value) {
         this._penalityString = value;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
+    }
+
+    get creatingStep() {
+        return this._creatingStep;
+    }
+
+    set creatingStep(value) {
+        this._creatingStep = value;
     }
 }
 

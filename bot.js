@@ -3,6 +3,11 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 const config = require('./model/config.json');
+const {getPenalty} = require("./Controller/Function/Player/Penalty/getPenalty");
+const {hint} = require("./Controller/client/Commands/Player/hint");
+const {registerHint} = require("./Controller/Function/Hint/registerHint");
+const {var_hintSet} = require("./Controller/value/var_hint");
+const {var_hintGet} = require("./Controller/value/var_hint");
 const {initLang} = require("./Controller/Function/other/lang/initLang");
 const client = new Discord.Client();
 
@@ -10,8 +15,8 @@ const { v4: uuidv4 } = require('uuid');
 
 const {removeQuestions} = require("./Controller/client/Commands/Questions/removeQuestion");
 const {qSetup} = require("./Controller/client/Commands/Admin/qsetup");
-const {qLeave} = require("./Controller/client/Commands/Quiz/qLeave");
-const {qJoin} = require("./Controller/client/Commands/Quiz/qJoin");
+const {qLeave} = require("./Controller/client/Commands/Player/qLeave");
+const {qJoin} = require("./Controller/client/Commands/Player/qJoin");
 const {qReset} = require("./Controller/client/Commands/Admin/qreset");
 const {setup} = require("./Controller/client/Commands/setup");
 const {questionList} = require("./Controller/client/Commands/Questions/questionList");
@@ -20,7 +25,7 @@ const {qHelp} = require("./Controller/client/Commands/Admin/qhelp");
 const {qRemove} = require("./Controller/client/Commands/Quiz/qRemove");
 const {newHint} = require('./Controller/client/Commands/Hint/newHint');
 
-const {hasRole} = require("./Controller/Function/Player/hasRole");
+const {hasRole} = require("./Controller/Function/Player/Role/hasRole");
 const {getPlayerInfo} = require('./Controller/Function/Player/getPlayerInfo');
 
 const {getQuestion} = require('./Controller/Function/Question/getQuestion');
@@ -35,18 +40,20 @@ const {registerQuiz} = require('./Controller/Function/Quiz/registerQuiz');
 const {logInfo} = require("./Controller/Function/LOG/logInfo");
 const {logError} = require("./Controller/Function/LOG/logError");
 
-const {Quizz} = require('./Controller/class/Quizz.js');
-const {C_question} = require('./Controller/class/c_question');
+const {classQuiz} = require('./Controller/class/class_quiz.js');
+const {classQuestion} = require('./Controller/class/class_question');
 const {classHint} = require('./Controller/class/class_hint');
 
 const prefix = config.PREFIX;
-const comment = config.COMMENT;
+const comment = config.COMMENTARY;
 
 let newQuiz = [];
 let newQuestion = [];
 let newHintList = [];
 
 let lang = null;
+
+let blockHint = false;
 
 client.on("ready", function (){
 
@@ -60,21 +67,39 @@ client.on("ready", function (){
 client.on("message", function (message){
     let valid;
     let item;
+    let key;
 
     if (message.author.bot) return;
+
+    let questionStep = isQuestionChannel(message.channel.id, false, true)
+    let quiz = isQuestionChannel(message.channel.id, true, false)
+    let question = getQuestion(quiz, false, questionStep, "")
+    let playerDatas = getPlayerInfo(message.author.id, true);
+    let playerData
+
+
+    const channel = client.channels.cache.get(message.channel.id);
+
+    const commandBody = message.content.slice(prefix.length);
+    const args = commandBody.split(' ');
+
+    const penality = getPenalty(message.author.id, quiz, true, question['uid']);
+    if(args[0] === 'hint' || message.content.charAt(0) !== prefix) {
+        if (penality !== false && penality.time !== undefined) {
+
+            channel.send(penality.reason.replace('%time%', penality.time).replace('%name%', message.author.username));
+            blockHint = true;
+            return;
+
+        }
+    }
+
     if (message.content.charAt(0) === prefix) return;
+    if(message.content.charAt(0) === comment) return;
 
     if(isQuestionChannel(message.channel.id, false, false)){
 
-        if(message.content.charAt(0) === comment) return;
 
-        let questionStep = isQuestionChannel(message.channel.id, false, true)
-        let quiz = isQuestionChannel(message.channel.id, true, false)
-        let question = getQuestion(quiz, false, questionStep, "")
-        let playerDatas = getPlayerInfo(message.author.id, true);
-        let playerData
-
-        const channel = client.channels.cache.get(message.channel.id);
 
         for(let u of playerDatas){
             if(u.quizID === quiz){
@@ -115,8 +140,17 @@ client.on("message", function (message){
             item = items;
         }
     }
+    for (const items of var_hintGet()){
 
-    const channel = client.channels.cache.get(message.channel.id);
+        if(items._author === message.author.id && items._creatingStep !== 3){
+
+            valid = 3;
+
+            key = Object.keys(var_hintGet()).find(key => var_hintGet()[key] === items);
+            item = items;
+
+        }
+    }
 
     switch (valid) {
         case 1:
@@ -151,6 +185,36 @@ client.on("message", function (message){
                     break;
 
             }
+            break;
+        case 3:
+            switch (item.creatingStep){
+                case 0:
+                    item.content = message.content;
+                    item.creatingStep +=1;
+
+                    channel.send(lang['hintContentSet'].replace('%content%', message.content));
+
+                    var_hintSet(key, item);
+                    break;
+                case 1:
+                    item.penalityString = message.content;
+                    item.creatingStep+=1;
+
+                    channel.send(lang['hintPenaltyStringSet'].replace('%penaltyString%', message.content));
+
+                    var_hintSet(key, item);
+                    break;
+                case 2:
+                    item.penality = parseInt(message.content);
+                    item.creatingStep+=1;
+
+                    channel.send(lang['hintPenaltySet'].replace('%time%', message.content));
+
+                    var_hintSet(key, item);
+                    registerHint(item);
+                    break;
+            }
+            break;
     }
 });
 
@@ -202,7 +266,7 @@ client.on("message", function(message) {
         case "newquiz":
             if (!hasRole(message, "canCreateQuiz")) return;
 
-            quiz = new Quizz();
+            quiz = new classQuiz();
 
             quiz.author = message.author.id;
 
@@ -255,7 +319,7 @@ client.on("message", function(message) {
                     }
                 }
                 if(exist){
-                    let question = new C_question();
+                    let question = new classQuestion();
                     let lastQuestion;
                     let id = 0
                     if(getQuestion(uid, true, -1, "") === undefined){
@@ -284,7 +348,7 @@ client.on("message", function(message) {
             break;
         case "newhint":
 
-            let tempHint = newHint();
+            let tempHint = newHint(message, client, args, channel);
 
             if(tempHint === false) {
                 if (typeof tempHint === classHint) {
@@ -293,6 +357,11 @@ client.on("message", function(message) {
                     logError('tempHint n\'est pas une variable de type "classHint".');
                 }
             }
+            break;
+        case "hint":
+
+            if(!blockHint) hint(author, message, channel);
+
             break;
         default:
             break;

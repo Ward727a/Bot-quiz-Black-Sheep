@@ -1,6 +1,6 @@
 {
 
-  "allLangCat": ["newHint", "main", "qhelp"],
+  "allLangCat": ["main", "qhelp", "qreset", "qsetup", "questionlist","removequestion","qjoin","qleave","qlist","setup","newhint"],
 
   "main": {
 
@@ -18,7 +18,11 @@
     "questionFalseSet": "La fausse réponse sera : `%questionFalse%`.\n\nLa création de la question est terminer !",
 
     "newQuestionCommand": "Ajout d'une question au questionnaire `%quizTitle%`.\n\nEn premier tapez la question : ",
-    "newQuestionCommandError": "Oops, le quiz avec le UUID `%uid%` n'éxiste pas."
+    "newQuestionCommandError": "Oops, le quiz avec le UUID `%uid%` n'éxiste pas.",
+
+    "hintContentSet": "Le contenu de l'indice sera `%content%`.\n\nTapez maintenant la phrase d'attente. \n\n(N'oubliez pas : `%time%` pour afficher le temps restant || `%name%` pour afficher le nom de l'auteur du message).",
+    "hintPenaltyStringSet": "La phrase d'attente sera `%penaltyString%`.\n\nTapez maintenant le temps d'attente __en minute(s)__:",
+    "hintPenaltySet": "Le temps d'attente sera de `%time%` !\n\nMise en place de l'indice terminer !"
   },
 
   "qhelp": {
@@ -34,7 +38,7 @@
   },
 
   "questionlist": {
-    "titleLine": "Voici une liste des questions pour le quiz `%quizTitle%` :\n"
+    "titleString": "Voici une liste des questions pour le quiz `%quizTitle%` :\n"
   },
 
   "removequestion": {
@@ -59,9 +63,24 @@
     "alreadySetup": "Le serveur à déjà les roles nécessaire, veuillez vérifier."
   },
 
-  "newHint": {
+  "newhint": {
 
-    "errorArgsEmpty": "Les arguments pour la commande \"newhint\" sont vides."
+    "errorArgsEmptyConsole": "Les arguments pour la commande \"newhint\" sont vides.",
+    "errorArgsEmpty": "Vous devez indiquez un UID pour faire la commande !",
+    "creatingString": "Création d'un indice pour la question, en premier, tapez le contenu de cet indice :",
+    "errorQuestionNotExist": "La question ne semble pas exister !"
+
+  },
+
+  "var_hint": {
+
+    "errorHintSet": "La variable [%key%] du tableau HINT n'as pas étais modifié !"
+
+  },
+
+  "hint": {
+
+    "allHintUsed": "Tu a déjà réveller tous les indices pour cet question !"
 
   }
 

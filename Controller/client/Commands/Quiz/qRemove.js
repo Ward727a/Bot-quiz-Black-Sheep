@@ -1,5 +1,5 @@
 const {removeQuiz} = require("../../../Function/Quiz/removeQuiz");
-const {hasRole} = require("../../../Function/Player/hasRole");
+const {hasRole} = require("../../../Function/Player/Role/hasRole");
 
 function qRemove(message, args){
     if(!hasRole(message, "canCreateQuiz")) return;

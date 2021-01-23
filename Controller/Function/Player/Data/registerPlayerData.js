@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {logError} = require("../LOG/logError");
+const {logError} = require("../../LOG/logError");
 
 function registerPlayerData(datae){
 

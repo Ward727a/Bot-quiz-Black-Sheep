@@ -1,5 +1,5 @@
 const {getLang} = require("../../../Function/other/lang/getLangString");
-const {removePlayerData} = require("../../../Function/Player/removePlayerData");
+const {removePlayerData} = require("../../../Function/Player/Data/removePlayerData");
 const {getPlayerInfo} = require("../../../Function/Player/getPlayerInfo");
 const {getQuiz} = require("../../../Function/Quiz/getQuiz");
 

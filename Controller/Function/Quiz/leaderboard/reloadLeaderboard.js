@@ -30,12 +30,23 @@ function reloadLeaderboard(leaderboardID, message, client){
                         let member = message.guild.members.cache.get(leaderboard.player).user;
 
                         let totalminutes = leaderboard.time;
+
+                        let month = 0;
+                        let day = 0;
                         let hours = 0;
                         let minutes;
 
                         while (totalminutes >= 60){
                             totalminutes-=60;
                             hours+=1;
+                            if(hours>=24){
+                                hours = 0;
+                                day+=1;
+                                if(day/1440 >= 1){
+                                    day = 1;
+                                    month+=1;
+                                }
+                            }
                         }
                         if(totalminutes < 0){
                             minutes = 0;
@@ -43,7 +54,7 @@ function reloadLeaderboard(leaderboardID, message, client){
                             minutes = totalminutes;
                         }
 
-                        newMessages += ' ' + index + ' - ' + member.username + '('+hours+'h '+minutes+'m)\n';
+                        newMessages += ' ' + index + ' - ' + member.username + ' ['+month+' mois / '+day+' jours] ('+hours+'h '+minutes+'m)\n';
                     } else {
                         newMessages += ' ' + index + ' - \n';
                     }

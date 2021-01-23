@@ -1,5 +1,5 @@
 const {getLang} = require("../../../Function/other/lang/getLangString");
-const {hasRole} = require("../../../Function/Player/hasRole");
+const {hasRole} = require("../../../Function/Player/Role/hasRole");
 
 function qList(channel, fs, message){
     let msg = "";

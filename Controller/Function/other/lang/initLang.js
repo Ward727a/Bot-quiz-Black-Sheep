@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 const {logInfo} = require("../../LOG/logInfo");
-const {pushErrorLangCat} = require("./lang");
+const {var_pushErrorLangCat} = require("../../../value/var_lang");
 
 
 const {logError} = require("../../LOG/logError");
@@ -26,7 +26,7 @@ function initLang(){
 
         if(lang === false){
 
-            pushErrorLangCat(langCat);
+            var_pushErrorLangCat(langCat);
 
             logError('La catégorie ["'+langCat+'"] n\'existe pas ou ne peut pas être récuperer, vérifier le nom !');
 
