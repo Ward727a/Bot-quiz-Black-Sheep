@@ -1,4 +1,5 @@
 const fs = require('fs');
+const {quizJSON} = require("../other/settingsFileVar");
 
 function setChannelQuiz(quiz){
 
@@ -9,11 +10,11 @@ function setChannelQuiz(quiz){
     let newData = "{\n\"Quiz\":["
     let index = 0;
 
-    let datas = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));
+    let datas = quizJSON();
 
     if(quiz.length !== datas['Quiz'].length){
 
-        for(const data of datas['Quiz']){
+        for(const data of datas){
 
             if(index !== 0){
                 newData+=",\n";
@@ -46,7 +47,7 @@ function setChannelQuiz(quiz){
     }
     newData+="\n]\n}"
 
-    fs.writeFileSync("./model/quiz.json", newData, "utf-8");
+    fs.writeFileSync("./model/JSON/quiz.json", newData, "utf-8");
 
 
 }

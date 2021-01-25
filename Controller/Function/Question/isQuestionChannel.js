@@ -1,10 +1,10 @@
 const fs = require('fs');
+const {participateJSON} = require("../other/settingsFileVar");
 
 function isQuestionChannel(channelID, getQuiz, getQuestionStep){
-    let data = fs.readFileSync('./model/participate.json', 'utf-8')
-    let players = JSON.parse(data);
+    let data = participateJSON()
 
-    for(let player of players['players']){
+    for(let player of data){
 
         if(player.channelID === channelID){
             if(getQuiz){

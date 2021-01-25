@@ -1,3 +1,4 @@
+const {quizJSON} = require("../../../Function/other/settingsFileVar");
 const {getLang} = require("../../../Function/other/lang/getLangString");
 const {setChannelQuiz} = require("../../../Function/Quiz/setChannelQuiz");
 const {classQuiz} = require("../../../class/class_quiz");
@@ -9,14 +10,11 @@ function qSetup(message, channel, fs, client, args){
 
     let quizPermSet = [];
     let quizToCreate = [new classChannel()];
-    let dataJSON = fs.readFileSync('./model/quiz.json', 'utf-8');
-    let allQuiz = JSON.parse(dataJSON);
-
-    const {Quiz} = allQuiz;
+    let dataJSON = quizJSON();
 
     if(args.length !== 0){
 
-        for(const i of Quiz){
+        for(const i of dataJSON){
 
             if(i.uuid === args[0]) {
                 let u = new classChannel();

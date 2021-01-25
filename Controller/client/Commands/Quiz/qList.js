@@ -1,3 +1,4 @@
+const {quizJSON} = require("../../../Function/other/settingsFileVar");
 const {getLang} = require("../../../Function/other/lang/getLangString");
 const {hasRole} = require("../../../Function/Player/Role/hasRole");
 
@@ -14,8 +15,8 @@ function qList(channel, fs, message){
     msg = lang['titleString'];
     try {
 
-        allQuiz = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));
-        for (const quiz of allQuiz['Quiz']) {
+        allQuiz = quizJSON();
+        for (const quiz of allQuiz) {
             title = quiz.title;
             uuid = quiz.uuid;
 

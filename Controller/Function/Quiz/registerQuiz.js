@@ -4,8 +4,8 @@ const {logError} = require("../LOG/logError");
 function registerQuiz(Quiz){
 
     try{
-        if(fs.existsSync('./model/quiz.json')){
-            fs.readFile('./model/quiz.json', 'utf-8', (err, data)=>{
+        if(fs.existsSync('./model/JSON/quiz.json')){
+            fs.readFile('./model/JSON/quiz.json', 'utf-8', (err, data)=>{
                 if(err) {
                     logError(err)
                     throw err;
@@ -13,7 +13,7 @@ function registerQuiz(Quiz){
                 let newSData = JSON.stringify(Quiz);
                 data = data.toString().slice(0, -4)
                 let newData = data+",\n    "+newSData+"\n  ]\n}";
-                fs.writeFile('./model/quiz.json', newData, 'utf-8', (err)=>{
+                fs.writeFile('./model/JSON/quiz.json', newData, 'utf-8', (err)=>{
                     if (err) {
                         logError(err)
                         throw err;
@@ -22,7 +22,7 @@ function registerQuiz(Quiz){
             });
             console.log("end");
         } else {
-            fs.writeFile('./model/quiz.json', JSON.stringify(Quiz), 'utf-8', (err)=>{
+            fs.writeFile('./model/JSON/quiz.json', JSON.stringify(Quiz), 'utf-8', (err)=>{
                 if (err) {
                     logError(err)
                     throw err;

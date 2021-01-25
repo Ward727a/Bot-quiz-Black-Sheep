@@ -1,7 +1,7 @@
 const {getPlayerChannelByQuiz} = require("../../../Function/Player/getPlayerChannelByQuiz");
 const {getLang} = require("../../../Function/other/lang/getLangString");
 
-const fs = require('fs');
+const {quizJSON} = require("../../../Function/other/settingsFileVar");
 
 function qReset(message, channel){
 
@@ -9,14 +9,9 @@ function qReset(message, channel){
 
     let lang = getLang('qreset');
 
-    let dataJSON = fs.readFileSync('./model/quiz.json', 'utf-8')
-    let allQuiz = JSON.parse(dataJSON);
+    let dataJSON = quizJSON()
 
-    console.log(allQuiz);
-
-    for(const i of allQuiz['Quiz']){
-
-        console.log(i);
+    for(const i of dataJSON){
 
         const o = message.guild.channels.cache.find(channel => channel.id === i.channelID);
 

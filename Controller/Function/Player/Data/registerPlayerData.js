@@ -4,8 +4,8 @@ const {logError} = require("../../LOG/logError");
 function registerPlayerData(datae){
 
     try{
-        if(fs.existsSync('./model/participate.json')){
-            fs.readFile('./model/participate.json', 'utf-8', (err, data)=>{
+        if(fs.existsSync('./model/JSON/participate.json')){
+            fs.readFile('./model/JSON/participate.json', 'utf-8', (err, data)=>{
                 if(err) {
                     logError(err)
                     throw err;
@@ -13,7 +13,7 @@ function registerPlayerData(datae){
                 let newSData = JSON.stringify(datae);
                 data = data.toString().slice(0,-4);
                 let newData = data+",\n    "+newSData+"\n  ]\n}";
-                fs.writeFile('./model/participate.json', newData, 'utf-8', (err)=>{
+                fs.writeFile('./model/JSON/participate.json', newData, 'utf-8', (err)=>{
                     if (err) {
                         logError(err)
                         throw err;
@@ -22,7 +22,7 @@ function registerPlayerData(datae){
             });
             console.log("end");
         } else {
-            fs.writeFile('./model/participate.json', JSON.stringify(datae), 'utf-8', (err)=>{
+            fs.writeFile('./model/JSON/participate.json', JSON.stringify(datae), 'utf-8', (err)=>{
                 if (err) {
                     logError(err)
                     throw err;

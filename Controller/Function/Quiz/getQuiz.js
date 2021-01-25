@@ -1,10 +1,10 @@
 const fs = require('fs');
+const {quizJSON} = require("../other/settingsFileVar");
 
 function getQuiz(uid){
-    let data = fs.readFileSync('./model/quiz.json', 'utf-8');
-    let quizs = JSON.parse(data);
+    let data = quizJSON()
 
-    for (let quiz of quizs['Quiz']){
+    for (let quiz of data){
         if(quiz.uuid === uid){
             return quiz;
         }

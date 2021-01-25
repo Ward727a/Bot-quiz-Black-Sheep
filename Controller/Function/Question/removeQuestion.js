@@ -1,12 +1,14 @@
 const fs = require('fs');
+const {setQuestionJSON} = require("../other/settingsFileVar");
+const {questionJSON} = require("../other/settingsFileVar");
 
 function removeQuestion(uid){
-    let data = JSON.parse(fs.readFileSync('./model/question.json', 'utf-8'));
+    let data = questionJSON();
     let newData = '{\n  "questions":[\n'
 
     let index = 0
 
-    for (let u of data['questions']){
+    for (let u of data){
 
         if(u.uid === uid){
 
@@ -25,7 +27,7 @@ function removeQuestion(uid){
         if(data['questions'].length === index+1){
             newData+="\n  ]\n" +
                 "}"
-            fs.writeFileSync('./model/question.json', newData, 'utf-8')
+            setQuestionJSON(newData)
         }
 
     }

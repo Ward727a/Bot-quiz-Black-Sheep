@@ -3,9 +3,9 @@ const {hasRole} = require("../../Function/Player/Role/hasRole");
 
 function setup(message, channel){
 
-    if(!hasRole(message, 'Amiral')) return;
+    if(!hasRole(message, 'Administrateur')) return;
 
-    let lang = getLang['setup'];
+    let lang = getLang('setup');
 
     for(let i of message.guild.roles.cache.values()){
         if(i.name === "canCreateQuiz"){

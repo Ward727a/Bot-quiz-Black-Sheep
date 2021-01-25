@@ -30,7 +30,7 @@ function infoLog(msg, useConsole){
 
     logData += hours+":"+minutes+":"+seconds+" [INFO] >> "+msg;
 
-    fs.appendFileSync('./model/logs/info.log', logData, "utf-8");
+    fs.appendFileSync('./model/JSON/logs/info.log', logData, "utf-8");
 
     if(useConsole === true) {
         console.log(logData);

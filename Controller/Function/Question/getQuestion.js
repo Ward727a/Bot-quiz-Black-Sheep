@@ -1,13 +1,13 @@
 const fs = require('fs');
+const {questionJSON} = require("../other/settingsFileVar");
 
 function getQuestion(uid, last, id, qUID){
-    let data = fs.readFileSync('./model/question.json', 'utf-8')
-    let questions = JSON.parse(data);
+    let data = questionJSON();
     let lastQuestion = "";
     let arrayQuestion = []
     let index = 0
 
-    for (let question of questions["questions"]){
+    for (let question of data){
         if(qUID !== "" || qUID !== undefined){
             index++
             console.log(qUID);

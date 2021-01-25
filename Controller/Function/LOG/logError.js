@@ -30,7 +30,7 @@ function errorLog(msg){
 
     logData += hours+":"+minutes+":"+seconds+" [ERREUR] >> "+msg;
 
-    fs.appendFileSync('./model/logs/error.log', logData, "utf-8");
+    fs.appendFileSync('./model/JSON/logs/error.log', logData, "utf-8");
 
     console.error(logData);
 

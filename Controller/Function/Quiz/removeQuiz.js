@@ -1,13 +1,15 @@
 const fs = require('fs');
+const {setQuizJSON} = require("../other/settingsFileVar");
+const {quizJSON} = require("../other/settingsFileVar");
 
 function removeQuiz(uid, message){
-    let data = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'))
+    let data = quizJSON()
     let tempData
     let index = 0
 
     let newData ='{\n'+'"Quiz":[\n'
 
-    for(let quiz of data['Quiz']){
+    for(let quiz of data){
 
 
         console.log(quiz);
@@ -32,7 +34,7 @@ function removeQuiz(uid, message){
 
         if(data['Quiz'].length === index+1){
             newData+='\n]\n}'
-            fs.writeFileSync('./model/quiz.json', newData,'utf-8')
+            setQuizJSON(newData)
             return
         }
 

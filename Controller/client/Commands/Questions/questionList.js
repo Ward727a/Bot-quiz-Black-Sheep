@@ -1,3 +1,4 @@
+const {questionJSON} = require("../../../Function/other/settingsFileVar");
 const {getLang} = require("../../../Function/other/lang/getLangString");
 const {getQuiz} = require("../../../Function/Quiz/getQuiz");
 const {hasRole} = require("../../../Function/Player/Role/hasRole");
@@ -26,8 +27,8 @@ function questionList(message, args, fs, channel){
     channel.send(msg);
     try {
 
-        let allQuiz = JSON.parse(fs.readFileSync('./model/question.json', 'utf-8'));
-        for (const u of allQuiz['questions']) {
+        let allQuiz = questionJSON();
+        for (const u of allQuiz) {
 
             if(args[0] === u.uidQuiz) {
                 let title = u.question;

@@ -1,14 +1,15 @@
 const fs = require('fs');
+const {quizJSON} = require("../../other/settingsFileVar");
 
 function reloadLeaderboard(leaderboardID, message, client){
 
-    let datas = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));
+    let datas = quizJSON();
     let newMessages = 'Classement du quiz :\n';
     let index = 1;
 
     console.log('reload leaderboard...');
 
-    for(let data of datas['Quiz']){
+    for(let data of datas){
 
         if(data.leaderBoardID === leaderboardID){
 

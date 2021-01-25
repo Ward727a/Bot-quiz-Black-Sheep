@@ -1,10 +1,11 @@
 const fs = require('fs');
+const {quizJSON} = require("../../other/settingsFileVar");
 
 function getLeaderboard(quizUID){
 
-    let datas = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));
+    let datas = quizJSON();
 
-    for(let data of datas['Quiz']){
+    for(let data of datas){
 
         if(data.uuid === quizUID){
 

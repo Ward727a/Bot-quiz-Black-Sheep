@@ -3,7 +3,7 @@ const {var_getErrorLangCat} = require("../../../value/var_lang");
 
 function getLang(_cat){
 
-    let langAllData = JSON.parse(fs.readFileSync('./model/lang.json'));
+    let langAllData = JSON.parse(fs.readFileSync('./model/JSON/lang.json'));
     let lang = false;
     let cat;
 

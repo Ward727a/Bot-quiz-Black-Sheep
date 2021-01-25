@@ -1,10 +1,12 @@
 const fs = require('fs');
+const {setParticipateJSON} = require("../../other/settingsFileVar");
+const {participateJSON} = require("../../other/settingsFileVar");
 const {getPlayerInfo} = require('../getPlayerInfo.js');
 
 function removePlayerData(message, dataToRemove){
     if(getPlayerInfo(dataToRemove.memberID, false).indexOf(dataToRemove.quizID) !== -1){
 
-        let allData = JSON.parse(fs.readFileSync('./model/participate.json', 'utf-8'));
+        let allData = participateJSON();
 
         let next = false
 
@@ -13,7 +15,7 @@ function removePlayerData(message, dataToRemove){
             '  "players":[\n' +
             '    {}';
 
-        for(let data of allData['players']){
+        for(let data of allData){
 
             arData.push(data);
 
@@ -21,31 +23,16 @@ function removePlayerData(message, dataToRemove){
 
         if(arData !== []){
 
-            console.log("ardata = ")
-            console.log(arData);
-
             for(let index in arData) {
 
                 let data = arData[index];
 
-                console.log(data);
-
-                console.log(data.step);
-
 
                 if (data.step !== undefined) {
-                    console.log("01")
-                    console.log(data.memberID + "-" + data.quizID);
-                    console.log(dataToRemove.memberID + "-" + dataToRemove.quizID);
                     if (data.memberID === dataToRemove.memberID && data.quizID === dataToRemove.quizID) {
-                        console.log("02")
-
                         let index2del = arData.indexOf(data);
 
                         if (index2del !== -1) {
-                            console.log("03")
-
-                            console.log(index2del);
 
 
                             const o = message.guild.channels.cache.find(channel => channel.id === data.channelID);
@@ -55,9 +42,6 @@ function removePlayerData(message, dataToRemove){
                             }
 
                             arData.splice(index2del, 1);
-
-                            console.log("data removed");
-                            console.log(arData)
 
                             next = true;
 
@@ -82,9 +66,7 @@ function removePlayerData(message, dataToRemove){
             newData+="\n  ]\n}"
         }
 
-        fs.writeFileSync('./model/participate.json', newData,'utf-8');
-
-        console.log("NEW DATA SAVED")
+        setParticipateJSON(newData);
 
     }
 }

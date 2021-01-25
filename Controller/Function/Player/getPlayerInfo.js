@@ -1,11 +1,12 @@
 const fs = require('fs');
+const {participateJSON} = require("../other/settingsFileVar");
 
 function getPlayerInfo(authorID, all){
     let quizIDAscent = []
 
-    let datas = JSON.parse(fs.readFileSync('./model/participate.json', 'utf-8'));
+    let datas = participateJSON();
 
-    for(let data of datas['players']){
+    for(let data of datas){
 
         if(data.memberID === authorID){
             if(!all) {

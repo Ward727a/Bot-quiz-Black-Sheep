@@ -12,7 +12,7 @@ let allLangCat = [];
 
 function initLang(){
 
-    let langCatData = JSON.parse(fs.readFileSync('./model/lang.json', 'utf-8'));
+    let langCatData = JSON.parse(fs.readFileSync('./model/JSON/lang.json', 'utf-8'));
 
     for(let langCat of langCatData['allLangCat']){
 

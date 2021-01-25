@@ -11,8 +11,8 @@ function registerHint(hint){
         return;
     }
     try{
-        if(fs.existsSync('./model/hint.json')){
-            fs.readFile('./model/hint.json', 'utf-8', (err, data)=>{
+        if(fs.existsSync('./model/JSON/hint.json')){
+            fs.readFile('./model/JSON/hint.json', 'utf-8', (err, data)=>{
                 if(err) {
 
                     logError(err);
@@ -22,7 +22,7 @@ function registerHint(hint){
                 let newSData = JSON.stringify(hint);
                 data = data.toString().slice(0,-4);
                 let newData = data+",\n    "+newSData+"\n  ]\n}";
-                fs.writeFile('./model/hint.json', newData, 'utf-8', (err)=>{
+                fs.writeFile('./model/JSON/hint.json', newData, 'utf-8', (err)=>{
                     if (err) {
 
                         logError(err);
@@ -32,7 +32,7 @@ function registerHint(hint){
                 });
             });
         } else {
-            fs.writeFile('./model/hint.json', JSON.stringify(hint), 'utf-8', (err)=>{
+            fs.writeFile('./model/JSON/hint.json', JSON.stringify(hint), 'utf-8', (err)=>{
                 if (err) {
 
                     logError(err);

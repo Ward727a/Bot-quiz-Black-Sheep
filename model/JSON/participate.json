@@ -1,0 +1,19 @@
+{
+  "players":[
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{},
+{"memberID":"263824739460448256","quizID":"0b8f341f-ceb2-45d7-8624-2e1eba76ec31","channelID":"794962101322907648","step":1},
+{"memberID":"263824739460448256","quizID":"8857a782-66e7-4e93-9b37-6b488f02a9af","channelID":"802602881656160286","step":0,"dateJoin":"6:0:18:17","dateEnd":"","penalty":[{"id":0,"questionID":"e3e718c5-21fc-4c68-a211-8e72996575c3","time":9777,"reason":"%name%, j'ai des interférence, je te revoie .... %time% minutes....."}]}
+]
+}

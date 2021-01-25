@@ -1,11 +1,12 @@
 const fs = require('fs');
+const {quizJSON} = require("../../other/settingsFileVar");
 const {logError} = require("../../LOG/logError");
 const {reloadLeaderboard} = require("./reloadLeaderboard");
 
 
 function setLeaderboard(quizUID, player, time, client, message){
 
-    let datas = JSON.parse(fs.readFileSync('./model/quiz.json', 'utf-8'));
+    let datas = quizJSON();
     let newData = '{\n"Quiz":[\n';
     let index = 0;
     let subIndex = 0;
@@ -14,7 +15,7 @@ function setLeaderboard(quizUID, player, time, client, message){
 
     const playerID = player;
 
-    for (let data of datas['Quiz']){
+    for (let data of datas){
 
 
         if(index !== 0){
@@ -72,7 +73,7 @@ function setLeaderboard(quizUID, player, time, client, message){
 
     console.log('new leaderboard data =\n'+newData);
 
-    fs.writeFile('./model/quiz.json', newData, function (err){
+    fs.writeFile('./model/JSON/quiz.json', newData, function (err){
         if(err) {
             logError(err)
             throw err;

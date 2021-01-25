@@ -1,5 +1,7 @@
 
 const fs = require('fs');
+const {setParticipateJSON} = require("../other/settingsFileVar");
+const {participateJSON} = require("../other/settingsFileVar");
 const {setLeaderboard} = require("../Quiz/leaderboard/setLeaderboard");
 
 const {getQuiz} = require('../Quiz/getQuiz.js');
@@ -13,7 +15,7 @@ function nextQuestion(playerID, quizID, channel, message, client){
     let playerData;
 
     // FOR secondStep
-    let allData = JSON.parse(fs.readFileSync('./model/participate.json', 'utf-8'));
+    let allData = participateJSON();
     let newData = "{\n" +
         '  "players":[\n'
     let index = 0;
@@ -26,7 +28,7 @@ function nextQuestion(playerID, quizID, channel, message, client){
 
     // firstStep
 
-    for(let u of allData['players']){
+    for(let u of allData){
 
         index++
 
@@ -47,7 +49,7 @@ function nextQuestion(playerID, quizID, channel, message, client){
 
         if(allData['players'].length === index){
             newData+="\n]\n}"
-            fs.writeFileSync('./model/participate.json', newData, 'utf-8')
+            setParticipateJSON(newData)
         }
 
     }

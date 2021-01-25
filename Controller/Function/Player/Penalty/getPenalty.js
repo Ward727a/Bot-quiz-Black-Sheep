@@ -8,8 +8,6 @@ function getPenalty(playerID, quizUID, completeProcess = false, questionRestrict
     let nTime = getMinuteTime();
     let allData = participateJSON();
 
-    console.log(nTime);
-
     let penalties = [classPenalty];
     let tempPenalties = [classPenalty];
 
