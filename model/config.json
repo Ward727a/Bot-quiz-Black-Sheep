@@ -1,4 +1,30 @@
 {
   "BOT_TOKEN": "YOUR_BOT_TOKEN",
-  "PREFIX": "!"
+  "PREFIX": "!",
+  "COMMENTARY": "%",
+  "baseFile": [
+
+    {
+      "name": "hint.json",
+      "content": "{\n  \"hints\": [\n    {}\n  ]\n}",
+      "perm": "canQuiz"
+    },
+    {
+      "name": "participate.json",
+      "content": "{\n  \"players\": [\n    {}\n  ]\n}",
+      "perm": "canQuiz"
+    },
+    {
+      "name": "question.json",
+      "content": "{\n  \"questions\": [\n    {}\n  ]\n}",
+      "perm": "canQuiz"
+    },
+    {
+      "name": "quiz.json",
+      "content": "{\n  \"Quiz\": [\n    {}\n  ]\n}",
+      "perm": "canQuiz"
+    }
+
+
+  ]
 }
